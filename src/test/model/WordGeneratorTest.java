@@ -1,5 +1,5 @@
 package model;
 
-class MyModelTest {
+class WordGeneratorTest {
     // delete or rename this class!
 }

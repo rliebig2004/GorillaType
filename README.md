@@ -29,10 +29,9 @@ You can even compare your skills with your friends and family, fun game idea, ri
 it might be even helpful for you too! 
 
 ## Phase 0 User Story
-- I want to be able to track the user's best record every round, and a record includes the name, WPS, and accuracy 
-percentage to the scoreboard.
-- I want to be able to see the scoreboard after every round along with my previous attempts.
-- I want to be able to calculate the words-per-second value (WPS) and accuracy percentage.
 - I want to be able to generate random words to create random statements and phrases for the application.
-
+- I want to be able to type in words into the application, matching the sentences/ phrases that the app has generated.
+- I want to be able to calculate the words-per-second value (WPS) and accuracy percentage.
+- I want to be able to track the user's best record every round, and a record includes the name, WPS, and accuracy
+  percentage to the scoreboard.
 
