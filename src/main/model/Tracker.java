@@ -32,20 +32,18 @@ public class Tracker {
         return this.wordsPerSecond;
     }
 
-    // REQUIRES: number of words > 0
+    // REQUIRES: number of generated words > 0
     // MODIFIES: this
     // EFFECTS: returns the typing accuracy of the user.
     public double getAccuracyPercentage(List<String> generatedList, List<String> inputList) {
 
         int result = 0;
 
-        if (generatedList.size() > 0 || inputList.size() > 0) {
-            for (int i = 0; i < generatedList.size() && i < inputList.size(); i++) {
-                String first = generatedList.get(i);
-                String second = inputList.get(i);
-                if (compare(first, second)) {
-                    result++;
-                }
+        for (int i = 0; i < generatedList.size() && i < inputList.size(); i++) {
+            String first = generatedList.get(i);
+            String second = inputList.get(i);
+            if (compare(first, second)) {
+                result++;
             }
         }
 
@@ -55,11 +53,7 @@ public class Tracker {
 
     // EFFECTS: compare the first word with the second word
     public boolean compare(String word1, String word2) {
-        boolean result = false;
-        if (word1.equals(word2)) {
-            result = true;
-        }
-        return result;
+        return word1.equals(word2);
     }
 
     // EFFECTS: starts the timer
