@@ -8,7 +8,7 @@ public class WordGenerator {
 
     public WordGenerator() {
         this.wordList = Arrays.asList("Yielding", "it", "you'll", "yielding", "they're", "to", "given", "there",
-                "there", "face" ,".", "Dominion",".", "Stars", "god", "behold", "air", "lesser", "saw", "night",
+                "there", "face", ".", "Dominion",".", "Stars", "god", "behold", "air", "lesser", "saw", "night",
                 "green", "They're", "fifth", "saying", "their", "abundantly", "is", "you", "unto", "to", "firmament",
                 "kind", "shall", "heaven",".", "All", "life", "also", "creeping", "his",".", "creepy", "be", "may",
                 "evening", "which", "from", "deep", "multiply", "saw", "that", "be", "forth", "multiply", "forth",
@@ -39,4 +39,5 @@ public class WordGenerator {
         }
         return result;
     }
+
 }

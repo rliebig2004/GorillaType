@@ -1,22 +1,28 @@
 package ui;
 
+import model.Scoreboard;
 import model.WordGenerator;
 import model.Tracker;
+
+import model.Entry;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-// runs the typing application
+// Runs the typing application
 public class GorillaTypeApplication {
     private Scanner inputCommand;
     private Scanner inputNumber;
     private Tracker result;
-    private int totalWords;
     private WordGenerator listOfWords;
+    private Entry entries;
+    private Scoreboard scoreboard;
 
     public GorillaTypeApplication() {
         runApp();
     }
 
+    // EFFECTS: Runs the GorillaTypeApp
     private void runApp() {
         boolean keepGoing = true;
         String command = null;
@@ -42,6 +48,7 @@ public class GorillaTypeApplication {
     // EFFECTS: initializes a new round
     private void init() {
         this.listOfWords = new WordGenerator();
+        this.scoreboard = new Scoreboard();
         inputCommand = new Scanner(System.in);
         inputCommand.useDelimiter("\n");
         inputNumber = new Scanner(System.in);
@@ -51,42 +58,72 @@ public class GorillaTypeApplication {
     // EFFECTS: processes user command
     private void processCommand(String command) {
         if (command.equals("c")) {
-            generateWords();
+
+            List<String> returnList = generateWords();
+            System.out.print("Start Typing!");
+            System.out.println();
+            this.result = new Tracker();
+
+            for (String str : returnList) {
+                System.out.print(str + " ");
+            }
+
+            System.out.println();
+            this.result.startTimer();
+
+            List<String> returnInput = generateAnswers();
+
+            this.result.endTimer();
+
+            System.out.println();
+            float time = this.result.getBestTime();
+            double accuracy = this.result.getAccuracyPercentage(returnList, returnInput);
+            double wps = this.result.getWordsPerSecond(returnInput.size());
+
+            this.entries = new Entry(time, accuracy, wps);
+            this.scoreboard.addEntries(this.entries);
+
+        } else if (command.equals("s")) {
+            scoreboardResult();
+
         } else {
             System.out.println("Selection not valid");
         }
     }
 
+
+    // EFFECTS: Produces the entries on the scoreboard
+    public void scoreboardResult() {
+        List<Entry> entryList = this.scoreboard.getListOfEntries();
+        for (Entry rslt: entryList) {
+            System.out.println("Best time: " + rslt.getTime());
+            System.out.println("Accuracy Percentage: " + rslt.getWPS() + "%");
+            System.out.println("Word Per Second (WPS): " + rslt.getAccuracy() + "/s");
+        }
+    }
+
     // EFFECTS: displays menu of options to user
-    private void displayMenu() {
+    public void displayMenu() {
         System.out.println("\nWelcome to GorillaType!");
         System.out.println("\tPress q to exit the game :(");
         System.out.println("\tPress c to continue :)");
+        System.out.println("\tPress s to see the scoreboard!");
     }
 
-    // REQUIRES:
     // EFFECTS: calls the word generator class and produces a randomized phrase with total words of n
-    private List<String> generateWords() {
+    public List<String> generateWords() {
         System.out.println("How many words would you like to test yourself today?");
         System.out.println("Enter: ");
         int i = inputNumber.nextInt();
         return this.listOfWords.getRandomWordList(i);
     }
+
+    // EFFECTS: produces the sentence provided by the user's input
+    public List<String> generateAnswers() {
+        String input = inputCommand.next();
+        String[] splited = input.split("\\s+");
+        List<String> answerList = Arrays.asList(splited);
+        return answerList;
+    }
+
 }
-
-// make a method that takes in an integer to produce n number of randomized phrases to type.
-// make a method that takes in a command (enter) / (escape) for starting/ending the program
-// make a method that takes
-
-// 1. "Welcome to GorillaType!"
-//    "Press escape to exit the game :("
-//    "Press return to continue :)"
-// 2. If esc = "Goodbye! See you soon!"
-//    If return = "How many words would you like to test yourself today?"
-// 3. "Happy Typing!"
-//     (random words ...)
-//
-//     (user input ...)
-// 4. Write a comparator method that compares the user input and the words generated (list with list)
-// 5. When return = "You have typed -/n words! Here are your details!"
-//    Best Time: - s            WPS: - words/s           Accuracy: - %
