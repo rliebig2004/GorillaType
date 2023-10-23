@@ -51,6 +51,7 @@ public class Tracker {
         return this.accuracyPercentage;
     }
 
+
     // EFFECTS: compare the first word with the second word
     public boolean compare(String word1, String word2) {
         return word1.equals(word2);

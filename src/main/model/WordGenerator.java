@@ -32,9 +32,9 @@ public class WordGenerator {
     // MODIFIES: this
     // EFFECTS: Generates a list of string with 200 words.
     public List<String> getRandomWordList(int numWords) {
-        List<String> result = new ArrayList<String>();
+        List<String> result = new ArrayList<>();
         Collections.shuffle(this.wordList);
-        for (int i = 0; i <= numWords; i++) {
+        for (int i = 0; i < numWords; i++) {
             result.add(this.wordList.get(i));
         }
         return result;

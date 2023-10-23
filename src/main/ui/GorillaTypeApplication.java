@@ -5,9 +5,8 @@ import model.WordGenerator;
 import model.Tracker;
 
 import model.Entry;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+
+import java.util.*;
 
 // Runs the typing application
 public class GorillaTypeApplication {
@@ -59,7 +58,19 @@ public class GorillaTypeApplication {
     private void processCommand(String command) {
         if (command.equals("c")) {
 
-            List<String> returnList = generateWords();
+            System.out.println("How many words would you like to test yourself today?");
+            System.out.println("Enter: ");
+            List<String> list = new ArrayList<>();
+            int i = 0;
+            try {
+                i = inputNumber.nextInt();
+                generateWords(i);
+            } catch (InputMismatchException exception) {
+                System.out.println("Selection not valid");
+                return;
+            }
+
+            List<String> returnList = generateWords(i);
             System.out.print("Start Typing!");
             System.out.println();
             this.result = new Tracker();
@@ -96,7 +107,7 @@ public class GorillaTypeApplication {
     public void scoreboardResult() {
         List<Entry> entryList = this.scoreboard.getListOfEntries();
         for (Entry rslt: entryList) {
-            System.out.println("Best time: " + rslt.getTime());
+            System.out.println("Best time: " + rslt.getTime() + "s");
             System.out.println("Accuracy Percentage: " + rslt.getWPS() + "%");
             System.out.println("Word Per Second (WPS): " + rslt.getAccuracy() + "/s");
         }
@@ -111,12 +122,10 @@ public class GorillaTypeApplication {
     }
 
     // EFFECTS: calls the word generator class and produces a randomized phrase with total words of n
-    public List<String> generateWords() {
-        System.out.println("How many words would you like to test yourself today?");
-        System.out.println("Enter: ");
-        int i = inputNumber.nextInt();
-        return this.listOfWords.getRandomWordList(i);
+    public List<String> generateWords(int command) {
+        return this.listOfWords.getRandomWordList(command);
     }
+
 
     // EFFECTS: produces the sentence provided by the user's input
     public List<String> generateAnswers() {
