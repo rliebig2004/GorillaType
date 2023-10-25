@@ -37,21 +37,21 @@ public class TrackerTest {
 
     // EFFECTS: Tests the getWordsPerSecond method.
     @Test
-    void getWordsPerSecondTestNoWords() {
+    void getWordsPerMinuteTestNoWords() {
         this.start = tracker.startTimer();
         this.end = tracker.endTimer();
         this.timer = this.tracker.getBestTime();
         assertEquals((this.numWords1 / ((this.end - this.start) / 1000)),
-                this.tracker.getWordsPerSecond(this.numWords1));
+                this.tracker.getWordsPerMinute(this.numWords1));
     }
 
     @Test
-    void getWordsPerSecondTest() {
+    void getWordsPerMinuteTest() {
         this.start = tracker.startTimer();
         this.end = tracker.endTimer();
         this.timer = this.tracker.getBestTime();
         assertEquals((this.numWords2 / ((this.end - this.start) / 1000)),
-                this.tracker.getWordsPerSecond(this.numWords2));
+                this.tracker.getWordsPerMinute(this.numWords2));
     }
 
 

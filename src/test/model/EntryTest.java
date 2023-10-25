@@ -21,7 +21,7 @@ public class EntryTest {
     void ConstructorTest() {
         Entry entry = new Entry(1f,2,3);
         assertEquals(1, entry.getTime());
-        assertEquals(2, entry.getWPS());
+        assertEquals(2, entry.getWPM());
         assertEquals(3, entry.getAccuracy());
     }
 
@@ -33,10 +33,10 @@ public class EntryTest {
     }
 
     @Test
-    void getWPSTest() {
-        assertEquals(0, entry1.getWPS());
-        assertEquals(30, entry2.getWPS());
-        assertEquals(120.5, entry3.getWPS());
+    void getWPMTest() {
+        assertEquals(0, entry1.getWPM());
+        assertEquals(30, entry2.getWPM());
+        assertEquals(120.5, entry3.getWPM());
     }
 
     @Test

@@ -3,6 +3,7 @@ package ui;
 import model.Scoreboard;
 import model.WordGenerator;
 import model.Tracker;
+import java.text.DecimalFormat;
 
 import model.Entry;
 
@@ -16,6 +17,8 @@ public class GorillaTypeApplication {
     private WordGenerator listOfWords;
     private Entry entries;
     private Scoreboard scoreboard;
+    private static DecimalFormat decfor;
+
 
     public GorillaTypeApplication() {
         runApp();
@@ -57,42 +60,8 @@ public class GorillaTypeApplication {
     // EFFECTS: processes user command
     private void processCommand(String command) {
         if (command.equals("c")) {
-
-            System.out.println("How many words would you like to test yourself today?");
-            System.out.println("Enter: ");
-            List<String> list = new ArrayList<>();
-            int i = 0;
-            try {
-                i = inputNumber.nextInt();
-                generateWords(i);
-            } catch (InputMismatchException exception) {
-                System.out.println("Selection not valid");
-                return;
-            }
-
-            List<String> returnList = generateWords(i);
-            System.out.print("Start Typing!");
-            System.out.println();
-            this.result = new Tracker();
-
-            for (String str : returnList) {
-                System.out.print(str + " ");
-            }
-
-            System.out.println();
-            this.result.startTimer();
-
-            List<String> returnInput = generateAnswers();
-
-            this.result.endTimer();
-
-            System.out.println();
-            float time = this.result.getBestTime();
-            double accuracy = this.result.getAccuracyPercentage(returnList, returnInput);
-            double wps = this.result.getWordsPerSecond(returnInput.size());
-
-            this.entries = new Entry(time, accuracy, wps);
-            this.scoreboard.addEntries(this.entries);
+            processGenerateCommand();
+            scoreboardResult();
 
         } else if (command.equals("s")) {
             scoreboardResult();
@@ -106,10 +75,11 @@ public class GorillaTypeApplication {
     // EFFECTS: Produces the entries on the scoreboard
     public void scoreboardResult() {
         List<Entry> entryList = this.scoreboard.getListOfEntries();
+        this.decfor = new DecimalFormat("0");
         for (Entry rslt: entryList) {
             System.out.println("Best time: " + rslt.getTime() + "s");
-            System.out.println("Accuracy Percentage: " + rslt.getWPS() + "%");
-            System.out.println("Word Per Second (WPS): " + rslt.getAccuracy() + "/s");
+            System.out.println("Accuracy Percentage: " + rslt.getWPM() + "%");
+            System.out.println("Word Per Minute (WPM): " + decfor.format(rslt.getAccuracy()) + " words /minute");
         }
     }
 
@@ -133,6 +103,56 @@ public class GorillaTypeApplication {
         String[] splited = input.split("\\s+");
         List<String> answerList = Arrays.asList(splited);
         return answerList;
+    }
+
+    // EFFECTS: a command that runs the integer request
+    public void processGenerateCommand() {
+        List<String> returnList = wordsToTestCommand();
+        System.out.print("Start Typing!");
+        System.out.println();
+
+        this.result = new Tracker();
+
+        for (String str : returnList) {
+            System.out.print(str + " ");
+        }
+
+        System.out.println();
+
+        this.result.startTimer();
+        List<String> returnInput = generateAnswers();
+        this.result.endTimer();
+
+        System.out.println();
+
+        newEntry(returnList, returnInput);
+    }
+
+    public List<String> wordsToTestCommand() {
+        System.out.println("How many words would you like to test yourself today?");
+        System.out.println("Enter: ");
+        List<String> list = new ArrayList<>();
+        int i = 0;
+        try {
+            i = inputNumber.nextInt();
+            list = generateWords(i);
+        } catch (InputMismatchException exception) {
+            System.out.println("Selection not valid");
+        }
+        return list;
+    }
+
+    public void newEntry(List<String> returnList, List<String> returnInput) {
+        float time = 0;
+        double accuracy = 0;
+        double wps = 0;
+
+        time = this.result.getBestTime();
+        accuracy = this.result.getAccuracyPercentage(returnList, returnInput);
+        wps = this.result.getWordsPerMinute(returnInput.size());
+
+        this.entries = new Entry(time, accuracy, wps);
+        this.scoreboard.addEntries(this.entries);
     }
 
 }

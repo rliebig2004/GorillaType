@@ -1,15 +1,19 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
 
 // Produces the results of the round as entries on the scoreboard.
-public class Entry {
+public class Entry implements Writable {
     private float bestTime;
-    private double wps;
+    private double wpm;
     private double accuracy;
 
-    public Entry(float time, double wps, double accpers) {
+    // Constructs a new entry with time, wpm, and accuracy percentages of the user's attempt
+    public Entry(float time, double wpm, double accpers) {
         this.bestTime = time;
-        this.wps = wps;
+        this.wpm = wpm;
         this.accuracy = accpers;
     }
 
@@ -19,12 +23,21 @@ public class Entry {
     }
 
     // EFFECTS: Returns the value of the WPS.
-    public double getWPS() {
-        return this.wps;
+    public double getWPM() {
+        return this.wpm;
     }
 
     // EFFECTS: Returns the value of the accuracy percentage.
     public double getAccuracy() {
         return this.accuracy;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("time", this.bestTime);
+        json.put("wpm", this.wpm);
+        json.put("acc", this.accuracy);
+        return json;
     }
 }

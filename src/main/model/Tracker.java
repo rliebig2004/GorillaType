@@ -2,17 +2,19 @@ package model;
 
 import java.util.*;
 
+
 // Calculate the words-per-second value (WPS), accuracy percentage, and best time of the user.
 public class Tracker {
     private float timeElapsed;
     private long start;
     private long end;
-    private double wordsPerSecond;
+    private double wordsPerMinute;
     private double accuracyPercentage;
 
+    // EFFECTS: initializes the time, WPM, and accuracy percentage
     public Tracker() {
         this.timeElapsed = 0;
-        this.wordsPerSecond = 0;
+        this.wordsPerMinute = 0;
         this.accuracyPercentage = 0;
     }
 
@@ -27,9 +29,10 @@ public class Tracker {
     // REQUIRES: number of seconds > 0
     // MODIFIES: this
     // EFFECTS: returns the typing speed of the user.
-    public double getWordsPerSecond(int words) {
-        this.wordsPerSecond = words / this.timeElapsed;
-        return this.wordsPerSecond;
+    public double getWordsPerMinute(int words) {
+        this.timeElapsed = this.timeElapsed / 60;
+        this.wordsPerMinute = words / this.timeElapsed;
+        return this.wordsPerMinute;
     }
 
     // REQUIRES: number of generated words > 0
