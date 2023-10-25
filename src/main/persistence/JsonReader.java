@@ -25,7 +25,7 @@ public class JsonReader {
     public Scoreboard read() throws IOException {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
-        return parseWorkRoom(jsonObject);
+        return parseScoreboard(jsonObject);
     }
 
     // EFFECTS: reads source file as string and returns it
@@ -40,8 +40,7 @@ public class JsonReader {
     }
 
     // EFFECTS: parses scoreboard from JSON object and returns it
-    private Scoreboard parseWorkRoom(JSONObject jsonObject) {
-        String name = jsonObject.getString("name");
+    private Scoreboard parseScoreboard(JSONObject jsonObject) {
         Scoreboard scrbrd = new Scoreboard();
         addEntries(scrbrd, jsonObject);
         return scrbrd;
@@ -60,9 +59,9 @@ public class JsonReader {
     // MODIFIES: scrbrd
     // EFFECTS: parses entry from JSON object and adds it to scoreboard
     private void addEntry(Scoreboard scrbrd, JSONObject jsonObject) {
-        float time = Float.valueOf(jsonObject.getString("time"));
-        double wpm = Double.valueOf(jsonObject.getString("wpm"));
-        double acc = Double.valueOf(jsonObject.getString("accuracy"));
+        float time = Float.valueOf(jsonObject.getFloat("time"));
+        double wpm = Double.valueOf(jsonObject.getDouble("wpm"));
+        double acc = Double.valueOf(jsonObject.getDouble("accuracy"));
         Entry entry = new Entry(time, wpm, acc);
         scrbrd.addEntries(entry);
     }

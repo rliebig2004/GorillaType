@@ -37,7 +37,7 @@ public class Entry implements Writable {
         JSONObject json = new JSONObject();
         json.put("time", this.bestTime);
         json.put("wpm", this.wpm);
-        json.put("acc", this.accuracy);
+        json.put("accuracy", this.accuracy);
         return json;
     }
 }

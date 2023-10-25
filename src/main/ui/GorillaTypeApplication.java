@@ -4,8 +4,12 @@ import model.Scoreboard;
 import model.WordGenerator;
 import model.Tracker;
 import java.text.DecimalFormat;
-
 import model.Entry;
+
+import persistence.JsonReader;
+import persistence.JsonWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import java.util.*;
 
@@ -15,14 +19,26 @@ public class GorillaTypeApplication {
     private Scanner inputNumber;
     private Tracker result;
     private WordGenerator listOfWords;
-    private Entry entries;
+
+    private Entry entry;
     private Scoreboard scoreboard;
+    private List<Entry> entryList;
     private static DecimalFormat decfor;
 
+    private static final String JSON_STORE = "./data/scoreboard.json";
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
+
+    // Constructs a typing game application
     public GorillaTypeApplication() {
+        this.scoreboard = new Scoreboard();
+        this.entryList = new ArrayList<>();
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         runApp();
     }
+
 
     // EFFECTS: Runs the GorillaTypeApp
     private void runApp() {
@@ -61,10 +77,12 @@ public class GorillaTypeApplication {
     private void processCommand(String command) {
         if (command.equals("c")) {
             processGenerateCommand();
-            scoreboardResult();
 
         } else if (command.equals("s")) {
-            scoreboardResult();
+            scoreboardResult(false);
+
+        } else if (command.equals("l")) {
+            loadsScoreboard();
 
         } else {
             System.out.println("Selection not valid");
@@ -73,22 +91,33 @@ public class GorillaTypeApplication {
 
 
     // EFFECTS: Produces the entries on the scoreboard
-    public void scoreboardResult() {
-        List<Entry> entryList = this.scoreboard.getListOfEntries();
+    public void scoreboardResult(boolean printOnce) {
         this.decfor = new DecimalFormat("0");
-        for (Entry rslt: entryList) {
+        this.entryList = this.scoreboard.getListOfEntries();
+        if (printOnce) {
+            Entry rslt = this.entryList.get(this.entryList.size() - 1);
             System.out.println("Best time: " + rslt.getTime() + "s");
             System.out.println("Accuracy Percentage: " + rslt.getWPM() + "%");
             System.out.println("Word Per Minute (WPM): " + decfor.format(rslt.getAccuracy()) + " words /minute");
+            System.out.println();
+        } else {
+            for (int i = 0; i < this.entryList.size(); i++) {
+                Entry rslt = this.entryList.get(i);
+                System.out.println("Best time: " + rslt.getTime() + "s");
+                System.out.println("Accuracy Percentage: " + rslt.getWPM() + "%");
+                System.out.println("Word Per Minute (WPM): " + decfor.format(rslt.getAccuracy()) + " words /minute");
+                System.out.println();
+            }
         }
     }
 
     // EFFECTS: displays menu of options to user
     public void displayMenu() {
         System.out.println("\nWelcome to GorillaType!");
-        System.out.println("\tPress q to exit the game :(");
-        System.out.println("\tPress c to continue :)");
-        System.out.println("\tPress s to see the scoreboard!");
+        System.out.println("\tq -> exit the game");
+        System.out.println("\tc -> continue");
+        System.out.println("\ts -> see your Scoreboard!");
+        System.out.println("\tl -> load Scoreboard from file");
     }
 
     // EFFECTS: calls the word generator class and produces a randomized phrase with total words of n
@@ -126,6 +155,11 @@ public class GorillaTypeApplication {
         System.out.println();
 
         newEntry(returnList, returnInput);
+        scoreboardResult(true);
+
+        System.out.println();
+
+        askToSaveFile();
     }
 
     public List<String> wordsToTestCommand() {
@@ -142,17 +176,55 @@ public class GorillaTypeApplication {
         return list;
     }
 
+    // REQUIRES: returnList not empty
+    // MODIFIES: this
+    // EFFECTS: creates a new entry
     public void newEntry(List<String> returnList, List<String> returnInput) {
         float time = 0;
         double accuracy = 0;
-        double wps = 0;
+        double wpm = 0;
 
         time = this.result.getBestTime();
         accuracy = this.result.getAccuracyPercentage(returnList, returnInput);
-        wps = this.result.getWordsPerMinute(returnInput.size());
+        wpm = this.result.getWordsPerMinute(returnInput.size());
 
-        this.entries = new Entry(time, accuracy, wps);
-        this.scoreboard.addEntries(this.entries);
+        this.entry = new Entry(time, accuracy, wpm);
+        this.scoreboard.addEntries(this.entry);
+    }
+
+
+    // EFFECTS: saves the scoreboard to file
+    private void savesScoreboard() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(scoreboard);
+            jsonWriter.close();
+            System.out.println("Saved Scoreboard to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads scoreboard from file
+    private void loadsScoreboard() {
+        try {
+            this.scoreboard = jsonReader.read();
+            this.entryList = this.scoreboard.getListOfEntries();
+            System.out.println("Loaded Scoreboard from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
+    }
+
+    public void askToSaveFile() {
+        System.out.println("\nWould you like to save your progress?");
+        System.out.println("\ty -> yes");
+        System.out.println("\tn -> no");
+        String input = inputCommand.next();
+        if (input.equals("y")) {
+            savesScoreboard();
+        }
     }
 
 }
