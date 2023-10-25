@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
 import java.util.List;
 
+// tests the Tracker class
 public class TrackerTest {
     private Tracker tracker;
     private float start;
@@ -16,6 +17,7 @@ public class TrackerTest {
     private int numWords1;
     private int numWords2;
 
+    // EFFECTS: initializes a new tracker, timer, and 2 example inputs
     @BeforeEach
     void runBefore() {
         this.tracker = new Tracker();
@@ -55,7 +57,6 @@ public class TrackerTest {
     }
 
 
-    // EFFECTS: Tests the getAccuracyPercentage method.
     @Test
     void getAccuracyPercentageTestGeneratedListLarger() {
         List<String> generatedList = new ArrayList<String>();

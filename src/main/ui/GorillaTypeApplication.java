@@ -30,7 +30,7 @@ public class GorillaTypeApplication {
     private JsonReader jsonReader;
 
 
-    // Constructs a typing game application
+    // EFFECTS: Constructs a typing game application
     public GorillaTypeApplication() {
         this.scoreboard = new Scoreboard();
         this.entryList = new ArrayList<>();
@@ -90,7 +90,8 @@ public class GorillaTypeApplication {
     }
 
 
-    // EFFECTS: Produces the entries on the scoreboard
+    // MODIFIES: this
+    // EFFECTS: Produces most recent entry after each round, produces all entries when viewing the scoreboard
     public void scoreboardResult(boolean printOnce) {
         this.decfor = new DecimalFormat("0");
         this.entryList = this.scoreboard.getListOfEntries();
@@ -102,6 +103,7 @@ public class GorillaTypeApplication {
             System.out.println();
         } else {
             for (int i = 0; i < this.entryList.size(); i++) {
+                System.out.println("Attempt " + (i + 1));
                 Entry rslt = this.entryList.get(i);
                 System.out.println("Best time: " + rslt.getTime() + "s");
                 System.out.println("Accuracy Percentage: " + rslt.getWPM() + "%");
@@ -156,12 +158,12 @@ public class GorillaTypeApplication {
 
         newEntry(returnList, returnInput);
         scoreboardResult(true);
-
-        System.out.println();
+        
 
         askToSaveFile();
     }
 
+    // EFFECTS: prints out a command for the user to input the number of words they want to test themselves
     public List<String> wordsToTestCommand() {
         System.out.println("How many words would you like to test yourself today?");
         System.out.println("Enter: ");
@@ -178,7 +180,7 @@ public class GorillaTypeApplication {
 
     // REQUIRES: returnList not empty
     // MODIFIES: this
-    // EFFECTS: creates a new entry
+    // EFFECTS: creates a new entry and adds it to the scoreboard
     public void newEntry(List<String> returnList, List<String> returnInput) {
         float time = 0;
         double accuracy = 0;
@@ -217,6 +219,7 @@ public class GorillaTypeApplication {
         }
     }
 
+    // EFFECTS: gives the user a choice to save their current round's progress
     public void askToSaveFile() {
         System.out.println("\nWould you like to save your progress?");
         System.out.println("\ty -> yes");
@@ -224,6 +227,10 @@ public class GorillaTypeApplication {
         String input = inputCommand.next();
         if (input.equals("y")) {
             savesScoreboard();
+        } else if (input.equals("n")) {
+            System.out.println("See you next time!");;
+        } else {
+            System.out.println("Selection not valid");
         }
     }
 

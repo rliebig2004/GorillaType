@@ -10,12 +10,12 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-// Test the JsonReader Class
+// Tests the JsonReader Class
 class JsonReaderTest extends JsonTest {
     private Scoreboard sr;
     private List<Entry> entries;
 
-    // Initializes values
+    // EFFECTS: Initializes a new scoreboard and a list of entries
     @BeforeEach
     void runBefore() {
         this.sr = new Scoreboard();
@@ -46,7 +46,7 @@ class JsonReaderTest extends JsonTest {
     }
 
     @Test
-    void testReaderGeneralWorkRoom() {
+    void testReaderGeneralScoreboard() {
         JsonReader reader = new JsonReader("./data/testReaderGeneralScoreboard.json");
         try {
             this.sr = reader.read();

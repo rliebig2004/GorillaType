@@ -5,11 +5,13 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+// tests the Entry class
 public class EntryTest {
     private Entry entry1;
     private Entry entry2;
     private Entry entry3;
 
+    // EFFECTS: initializes 3 new entries
     @BeforeEach
     void runBefore() {
         this.entry1 = new Entry(0,0,0);

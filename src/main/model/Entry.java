@@ -10,7 +10,7 @@ public class Entry implements Writable {
     private double wpm;
     private double accuracy;
 
-    // Constructs a new entry with time, wpm, and accuracy percentages of the user's attempt
+    // EFFECTS: Constructs a new entry with time, wpm, and accuracy percentages of the user's attempt
     public Entry(float time, double wpm, double accpers) {
         this.bestTime = time;
         this.wpm = wpm;
@@ -32,6 +32,7 @@ public class Entry implements Writable {
         return this.accuracy;
     }
 
+    // EFFECTS: Creates an Entry as a Json Object
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();

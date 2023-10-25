@@ -5,12 +5,14 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+// tests the Scoreboard class
 public class ScoreboardTest {
     private Scoreboard sc;
     private Entry e1;
     private Entry e2;
     private Entry e3;
 
+    // EFFECTS: initializes a new scoreboard and 3 new entries
     @BeforeEach
     void runBefore() {
         this.sc = new Scoreboard();

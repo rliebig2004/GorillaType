@@ -6,6 +6,7 @@ import java.util.*;
 public class WordGenerator {
     private List<String> wordList;
 
+    // EFFECTS: initializes a new word generator
     public WordGenerator() {
         this.wordList = Arrays.asList("Yielding", "it", "you'll", "yielding", "they're", "to", "given", "there",
                 "there", "face", ".", "Dominion",".", "Stars", "god", "behold", "air", "lesser", "saw", "night",

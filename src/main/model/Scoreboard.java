@@ -10,7 +10,7 @@ import java.util.*;
 public class Scoreboard implements Writable {
     private List<Entry> listOfEntries;
 
-    // Constructs a scoreboard with a list of entries of the user's attempts
+    // EFFECTS: Constructs a scoreboard with a list of entries of the user's attempts
     public Scoreboard() {
         this.listOfEntries = new ArrayList<Entry>();
     }
@@ -26,6 +26,7 @@ public class Scoreboard implements Writable {
         return this.listOfEntries;
     }
 
+    // EFFECTS: Creates a Scoreboard as a Json Object
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();

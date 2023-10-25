@@ -6,9 +6,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.util.*;
 
+// tests the wordGenerator class
 class WordGeneratorTest {
     private WordGenerator wg;
 
+    // EFFECTS: initializes a new word generator
     @BeforeEach
     void runBefore() {
         this.wg = new WordGenerator();
