@@ -34,6 +34,6 @@ it might be even helpful for you too!
 - I want to be able to calculate the words-per-second value (WPS) and accuracy percentage.
 - I want to be able to track the user's best record every round, and a record includes the name, WPS, and accuracy
   percentage to the scoreboard.
-- I want to be given the option to save my progress to file or not when I quit option from the application menu
-- I want to be given the option to load my to-do list from file when I start the application.
+- I want to be given the option to save my progress to file or not when I finish a round.
+- I want to be given the option to load my progress list from file when I start the application.
 
