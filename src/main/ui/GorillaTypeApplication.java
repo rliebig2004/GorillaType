@@ -19,6 +19,7 @@ public class GorillaTypeApplication {
     private Scanner inputNumber;
     private Tracker result;
     private WordGenerator listOfWords;
+    private int inputInteger;
 
     private Entry entry;
     private Scoreboard scoreboard;
@@ -99,7 +100,7 @@ public class GorillaTypeApplication {
             Entry rslt = this.entryList.get(this.entryList.size() - 1);
             System.out.println("Best time: " + rslt.getTime() + "s");
             System.out.println("Accuracy Percentage: " + rslt.getWPM() + "%");
-            System.out.println("Word Per Minute (WPM): " + decfor.format(rslt.getAccuracy()) + " words /minute");
+            System.out.println("Words Per Minute (WPM): " + decfor.format(rslt.getAccuracy()) + " words /minute");
             System.out.println();
         } else {
             for (int i = 0; i < this.entryList.size(); i++) {
@@ -107,7 +108,7 @@ public class GorillaTypeApplication {
                 Entry rslt = this.entryList.get(i);
                 System.out.println("Best time: " + rslt.getTime() + "s");
                 System.out.println("Accuracy Percentage: " + rslt.getWPM() + "%");
-                System.out.println("Word Per Minute (WPM): " + decfor.format(rslt.getAccuracy()) + " words /minute");
+                System.out.println("Words Per Minute (WPM): " + decfor.format(rslt.getAccuracy()) + " words /minute");
                 System.out.println();
             }
         }
@@ -158,7 +159,6 @@ public class GorillaTypeApplication {
 
         newEntry(returnList, returnInput);
         scoreboardResult(true);
-        
 
         askToSaveFile();
     }
@@ -168,10 +168,9 @@ public class GorillaTypeApplication {
         System.out.println("How many words would you like to test yourself today?");
         System.out.println("Enter: ");
         List<String> list = new ArrayList<>();
-        int i = 0;
         try {
-            i = inputNumber.nextInt();
-            list = generateWords(i);
+            inputInteger = inputNumber.nextInt();
+            list = generateWords(inputInteger);
         } catch (InputMismatchException exception) {
             System.out.println("Selection not valid");
         }

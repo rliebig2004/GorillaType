@@ -28,12 +28,13 @@ also help people in other fields such as the ones I stated beforehand; journalis
 You can even compare your skills with your friends and family, fun game idea, right? It's applications are endless and 
 it might be even helpful for you too! 
 
-## Phase 0 User Story
+## User Story
 - I want to be able to generate random words to create random statements and phrases for the application.
 - I want to be able to type in words into the application, matching the sentences/ phrases that the app has generated.
 - I want to be able to calculate the words-per-second value (WPS) and accuracy percentage.
-- I want to be able to track the user's best record every round, and a record includes the name, WPS, and accuracy
-  percentage to the scoreboard.
-- I want to be given the option to save my progress to file or not when I finish a round.
-- I want to be given the option to load my progress list from file when I start the application.
+- I want to be able to track the user's best time, WPM, and accuracy every round; 
+  adds it as a new attempt to the scoreboard.
+- I want to be able to print the scoreboard that holds each user's attempt
+- I want to be given the option to save my attempts to file or not when I finish a round.
+- I want to be given the option to load my attempts list from file when I start the application.
 
