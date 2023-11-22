@@ -38,6 +38,8 @@ public class MenuPanel extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1000, 1000);
 
+        createSplashScreen();
+
         menuPanel = new JPanel();
         menuPanel.setLayout(null);
         menuPanel.setPreferredSize(new Dimension(1000, 1000));
@@ -49,6 +51,39 @@ public class MenuPanel extends JFrame implements ActionListener {
         this.entryList = new ArrayList<>();
         jsonReader = new JsonReader(JSON_STORE);
         runDisplayMenu();
+    }
+
+    private void createSplashScreen() {
+        JWindow window = new JWindow();
+        window.setSize(1000, 1000);
+        centerOnScreen(window);
+
+        ImageIcon logo = new ImageIcon("data/gorilla.png");
+        window.getContentPane().add(new JLabel(scaleImage(logo, 400, 400 - 100)));
+        window.setVisible(true);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        window.setVisible(false);
+        window.dispose();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: center the application on the screen
+    private void centerOnScreen(Window container) {
+        int width = Toolkit.getDefaultToolkit().getScreenSize().width;
+        int height = Toolkit.getDefaultToolkit().getScreenSize().height;
+        container.setLocationRelativeTo(null);
+        container.setLocation((width - getWidth()) / 2, (height - getHeight()) / 2);
+    }
+
+    // EFFECTS: return a scale version of given imageIcon
+    private ImageIcon scaleImage(ImageIcon imageIcon, int width, int height) {
+        Image image = imageIcon.getImage();
+        Image scaledImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        return new ImageIcon(scaledImage);
     }
 
     // EFFECTS: initializing JButtons

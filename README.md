@@ -38,3 +38,16 @@ it might be even helpful for you too!
 - I want to be given the option to save my attempts to file or not when I finish a round.
 - I want to be given the option to load my attempts list from file when I start the application.
 
+## Instructions for Grader
+- You can generate the first required action related to the user story "adding multiple Xs to a Y" by 
+**pressing the "Save" button after you finish a round, it will save that new entry to the scoreboard.**
+- You can generate the second required action related to the user story "adding multiple Xs to a Y" by 
+**pressing the "Load Progress" on the Menu Page, it will show you all the entries that were added onto the scoreboard.**
+- You can locate my visual component by **running the game from the Main class**
+- You can save the state of my application by **pressing the "Save" button**
+- You can reload the state of my application by **pressing the "Load Progress" button**
+
+## Reference List
+- StackOverflow 
+- Oracle Help Center
+- Adobe Stock
