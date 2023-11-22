@@ -9,6 +9,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+// A class that creates the Scoreboard Page of the game, showing all the previous attempts of the user
+
 public class ScoreboardPanel extends JFrame {
 
     private JPanel panel;
@@ -20,6 +22,10 @@ public class ScoreboardPanel extends JFrame {
     private static final String JSON_STORE = "./data/scoreboard.json";
     private JScrollPane scrollPane;
 
+
+    // Constructs a scoreboard panel
+    // EFFECTS:  sets size and background colour of panel,
+    //           updates this with the scoreboard page of the game
     public ScoreboardPanel(Scoreboard updatedScoreboard) {
         super("GorillaTypeApplication");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -33,6 +39,7 @@ public class ScoreboardPanel extends JFrame {
         add(panel);
     }
 
+    // EFFECTS: initializing the panel and its visibility
     private void initialize() {
         this.panel = new JPanel();
         panel.setLayout(null);
@@ -45,6 +52,8 @@ public class ScoreboardPanel extends JFrame {
         panel.repaint();
     }
 
+    // MODIFIES: this
+    // EFFECTS: prints the scoreboard
     private void printMultiple() {
         JLabel title = new JLabel("SCOREBOARD");
         title.setFont(new Font("Monospaced", Font.BOLD, 30));
@@ -60,6 +69,7 @@ public class ScoreboardPanel extends JFrame {
         panel.repaint();
     }
 
+    // EFFECTS: goes through each entry of the scoreboard and prints them one by one
     private void print(int i) {
         int y = 200 * i + 20 * i;
 
@@ -89,6 +99,7 @@ public class ScoreboardPanel extends JFrame {
         panelAdd(attempt, time, accuracy, words);
     }
 
+    // EFFECTS: adds attempt, time, accuracy, and words JLabels to the panel (helper method)
     private void panelAdd(JLabel attempt, JLabel time, JLabel accuracy, JLabel words) {
         panel.add(attempt);
         panel.add(time);

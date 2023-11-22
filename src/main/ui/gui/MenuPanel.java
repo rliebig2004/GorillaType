@@ -3,7 +3,6 @@ package ui.gui;
 import model.Entry;
 import model.Scoreboard;
 import persistence.JsonReader;
-import persistence.JsonWriter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,6 +12,8 @@ import java.awt.Font;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+// A class that creates the Menu Page of the game
 
 public class MenuPanel extends JFrame implements ActionListener {
     private static final int titleSize = 30;
@@ -29,7 +30,9 @@ public class MenuPanel extends JFrame implements ActionListener {
     private static final String JSON_STORE = "./data/scoreboard.json";
     private JsonReader jsonReader;
 
-
+    // Constructs a menu panel
+    // EFFECTS:  sets size and background colour of panel,
+    //           updates this with the menu page of the game
     public MenuPanel() {
         super("GorillaTypeApplication");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -48,6 +51,7 @@ public class MenuPanel extends JFrame implements ActionListener {
         runDisplayMenu();
     }
 
+    // EFFECTS: initializing JButtons
     public void makeButtons() {
         playButton = new JButton("Play");
         playButton.setFont(new Font("Monospaced", Font.BOLD, 20));
@@ -66,6 +70,7 @@ public class MenuPanel extends JFrame implements ActionListener {
         loadScoreboard.setForeground(Color.GRAY);
     }
 
+    // EFFECTS: creates the title and buttons graphics
     public void runDisplayMenu() {
         JLabel title = new JLabel("Welcome to Gorilla Type!");
         title.setFont(new Font("Monospaced", Font.PLAIN, titleSize));
@@ -94,6 +99,7 @@ public class MenuPanel extends JFrame implements ActionListener {
         setVisible(true);
     }
 
+    // EFFECTS: gives functionality to all of the exisiting buttons
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == playButton) {
@@ -109,6 +115,8 @@ public class MenuPanel extends JFrame implements ActionListener {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: loads all the attempts from the JSON file
     public void load() {
         try {
             this.scoreboard = jsonReader.read();

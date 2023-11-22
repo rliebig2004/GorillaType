@@ -17,7 +17,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
+
+// A class that creates the main Game Page of the game, where the user plays
 
 public class GamePanel extends JFrame implements ActionListener {
 
@@ -48,7 +49,7 @@ public class GamePanel extends JFrame implements ActionListener {
     private JLabel results;
 
     // Constructs a game panel
-    // effects:  sets size and background colour of panel,
+    // EFFECTS:  sets size and background colour of panel,
     //           updates this with the game to be displayed
     public GamePanel() {
         super("GorillaTypeApplication");
@@ -70,10 +71,11 @@ public class GamePanel extends JFrame implements ActionListener {
         invalid.setForeground(Color.decode("#E2B712"));
         invalid.setBounds(200, 50, 500, 200);
 
-        visibleOn();
+        initialize();
         panel.repaint();
     }
 
+    // EFFECTS: initializing JButtons
     private void makeButtons() {
         this.nextButton = new JButton("PLAY");
         nextButton.setFont(new Font("Monospaced", Font.BOLD, 20));
@@ -92,7 +94,8 @@ public class GamePanel extends JFrame implements ActionListener {
         saveButton.setForeground(Color.GRAY);
     }
 
-    public void visibleOn() {
+    // EFFECTS: making the panel visible and initializing the fields
+    public void initialize() {
         add(panel);
         setVisible(true);
         this.jsonWriter = new JsonWriter(JSON_STORE);
@@ -104,14 +107,6 @@ public class GamePanel extends JFrame implements ActionListener {
         this.entryList = this.scoreboard.getListOfEntries();
         this.result = new Tracker();
         userIntegerInput();
-    }
-
-    // Draws the game
-    // modifies: g
-    // effects:  takes user input and runs game
-    private void runGame() {
-        drawOutput(this.inputNumber);
-        drawUserInput();
     }
 
     // MODIFIES:
@@ -139,10 +134,15 @@ public class GamePanel extends JFrame implements ActionListener {
         panel.add(nextButton);
     }
 
-    // modifies: g
-    // effects:  Draws the randomized words output onto the panel
+    // EFFECTS: runs the game with input number given previously
+    private void runGame() {
+        drawOutput(this.inputNumber);
+        drawUserInput();
+    }
+
+    // MODIFIES: this
+    // EFFECTS:  Draws the randomized words output onto the panel
     private void drawOutput(int n) {
-        // panel.add(new JLabel("Start Typing!"));
         this.wordsGenerated = this.listOfWords.getRandomWordList(n);
         String output = "";
 
@@ -160,9 +160,9 @@ public class GamePanel extends JFrame implements ActionListener {
         panel.repaint();
     }
 
-    // Draw the invaders
-    // modifies: g
-    // effects:  draws the invaders onto g
+    // MODIFIES: this
+    // EFFECTS: Creates a JTextArea for the user input onto the panel,
+    //          starts the timer
     private void drawUserInput() {
         this.result.startTimer();
         this.wordsInputted = new JTextArea();
@@ -184,6 +184,8 @@ public class GamePanel extends JFrame implements ActionListener {
         panel.repaint();
     }
 
+    // MODIFIES: time, accuracy, wpm, this
+    // EFFECTS: creates a new entry and calculates the time, accuracy, wpm of the current attempt
     public void newEntry(List<String> returnList, List<String> returnInput) {
         float time = 0;
         double accuracy = 0;
@@ -197,16 +199,7 @@ public class GamePanel extends JFrame implements ActionListener {
         this.scoreboard.addEntries(this.entry);
     }
 
-    public void scoreboardResult() {
-        results = new JLabel("Breakdown!");
-        results.setFont(new Font("Monospaced", Font.BOLD, 20));
-        results.setForeground(Color.decode("#E2B712"));
-        results.setBounds(450, 470, 500, 80);
-        panel.add(results);
-
-        printOnce();
-    }
-
+    // EFFECTS: gives functionality of all the buttons added
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == nextButton) {
@@ -235,6 +228,8 @@ public class GamePanel extends JFrame implements ActionListener {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: runs nextButton
     private void runNextButton() {
         this.user = userText.getText();
         this.inputNumber = Integer.parseInt(user);
@@ -244,15 +239,15 @@ public class GamePanel extends JFrame implements ActionListener {
         runGame();
     }
 
+    // MODIFIES: output, split, this
+    // EFFECTS: splits the input string into an ArrayList of type String
     private void split() {
         String output = this.wordsInputted.getText();
         String[] split = output.split("\\s+");
         this.answerList = Arrays.asList(split);
     }
 
-    // Draws the "game over" message and replay instructions
-    // modifies: g
-    // effects:  draws "game over" and replay instructions onto g
+    // EFFECTS:  draws "game over" and calls newEntry to further calculate the results
     private void gameOver() {
         backToMenuButton.addActionListener(this);
         backToMenuButton.setBounds(200, 700, 600, 50);
@@ -268,6 +263,18 @@ public class GamePanel extends JFrame implements ActionListener {
         panel.repaint();
     }
 
+    // EFFECTS: prints "Breakdown!" label when game is over (helper method)
+    public void scoreboardResult() {
+        results = new JLabel("Breakdown!");
+        results.setFont(new Font("Monospaced", Font.BOLD, 20));
+        results.setForeground(Color.decode("#E2B712"));
+        results.setBounds(450, 470, 500, 80);
+        panel.add(results);
+
+        printOnce();
+    }
+
+    // EFFECTS: saves current attempt to JSON File
     private void saveToFile() {
         updateScoreboard();
         this.updateScoreboard.addEntries(this.scoreboard.getListOfEntries().get(0));
@@ -296,6 +303,7 @@ public class GamePanel extends JFrame implements ActionListener {
         panel.repaint();
     }
 
+    // EFFECTS: gets the current scoreboard in the JSON File
     private void updateScoreboard() {
         try {
             this.updateScoreboard = jsonReader.read();
@@ -304,6 +312,7 @@ public class GamePanel extends JFrame implements ActionListener {
         }
     }
 
+    // EFFECTS: prints the results of the current attempt
     private void printOnce() {
         this.decfor = new DecimalFormat("0");
         Entry rslt = this.entryList.get(this.entryList.size() - 1);
