@@ -47,6 +47,26 @@ it might be even helpful for you too!
 - You can save the state of my application by **pressing the "Save" button**
 - You can reload the state of my application by **pressing the "Load Progress" button**
 
+## Phase 4: Task 2
+Wed Nov 29 07:57:23 PST 2023 \
+New attempt created! \
+Wed Nov 29 07:57:24 PST 2023 \
+All attempts loaded! \
+Wed Nov 29 07:57:24 PST 2023 \
+New attempt created! \
+Wed Nov 29 07:57:24 PST 2023 \
+New attempt created! \
+Wed Nov 29 07:57:24 PST 2023 \
+New attempt created! \
+Wed Nov 29 07:57:24 PST 2023 \
+New attempt created! \
+Wed Nov 29 07:57:24 PST 2023 \
+New attempt created! \
+Wed Nov 29 07:57:24 PST 2023 \
+New attempt created! \
+Wed Nov 29 07:57:24 PST 2023 \
+Attempt Saved!
+
 ## Reference List
 - StackOverflow 
 - Oracle Help Center
