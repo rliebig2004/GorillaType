@@ -2,6 +2,8 @@ package persistence;
 
 import model.Entry;
 import model.Scoreboard;
+import model.Event;
+import model.EventLog;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -14,10 +16,13 @@ import org.json.*;
 // Represents a reader that reads scoreboard from JSON data stored in file
 public class JsonReader {
     private String source;
+    private Event event;
+    private EventLog eventLog;
 
     // EFFECTS: constructs reader to read from source file
     public JsonReader(String source) {
         this.source = source;
+        this.eventLog = EventLog.getInstance();
     }
 
     // EFFECTS: reads scoreboard from file and returns it;
@@ -25,6 +30,8 @@ public class JsonReader {
     public Scoreboard read() throws IOException {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
+        this.event = new Event("All attempts loaded!");
+        this.eventLog.logEvent(this.event);
         return parseScoreboard(jsonObject);
     }
 

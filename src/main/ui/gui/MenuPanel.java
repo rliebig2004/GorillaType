@@ -1,13 +1,14 @@
 package ui.gui;
 
 import model.Entry;
+import model.Event;
+import model.EventLog;
 import model.Scoreboard;
 import persistence.JsonReader;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.awt.Font;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -46,6 +47,17 @@ public class MenuPanel extends JFrame implements ActionListener {
         menuPanel.setBackground(Color.decode("#313437"));
 
         makeButtons();
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                EventLog eventLog = EventLog.getInstance();
+                for (Event event : eventLog) {
+                    System.out.println(event);
+                }
+                e.getWindow().dispose();
+            }
+        });
 
         this.scoreboard = new Scoreboard();
         this.entryList = new ArrayList<>();
@@ -175,5 +187,4 @@ public class MenuPanel extends JFrame implements ActionListener {
 
         menuPanel.repaint();
     }
-
 }

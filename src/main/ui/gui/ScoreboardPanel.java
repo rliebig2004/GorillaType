@@ -1,10 +1,13 @@
 package ui.gui;
 
 import model.Entry;
+import model.Event;
+import model.EventLog;
 import model.Scoreboard;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +23,6 @@ public class ScoreboardPanel extends JFrame {
     private static DecimalFormat decfor;
 
     private static final String JSON_STORE = "./data/scoreboard.json";
-    private JScrollPane scrollPane;
-
 
     // Constructs a scoreboard panel
     // EFFECTS:  sets size and background colour of panel,
@@ -37,6 +38,17 @@ public class ScoreboardPanel extends JFrame {
 
         initialize();
         add(panel);
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                EventLog eventLog = EventLog.getInstance();
+                for (Event event : eventLog) {
+                    System.out.println(event);
+                }
+                e.getWindow().dispose();
+            }
+        });
     }
 
     // EFFECTS: initializing the panel and its visibility
@@ -106,5 +118,4 @@ public class ScoreboardPanel extends JFrame {
         panel.add(accuracy);
         panel.add(words);
     }
-
 }

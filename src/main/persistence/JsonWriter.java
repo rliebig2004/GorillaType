@@ -1,6 +1,8 @@
 package persistence;
 
 import model.Scoreboard;
+import model.Event;
+import model.EventLog;
 import org.json.JSONObject;
 
 
@@ -11,10 +13,13 @@ public class JsonWriter {
     private static final int TAB = 4;
     private PrintWriter writer;
     private String destination;
+    private Event event;
+    private EventLog eventLog;
 
     // EFFECTS: constructs writer to write to destination file
     public JsonWriter(String destination) {
         this.destination = destination;
+        this.eventLog = EventLog.getInstance();
     }
 
     // MODIFIES: this
@@ -29,6 +34,8 @@ public class JsonWriter {
     public void write(Scoreboard scrbrd) {
         JSONObject json = scrbrd.toJson();
         saveToFile(json.toString(TAB));
+        this.event = new Event("Attempt Saved!");
+        this.eventLog.logEvent(this.event);
     }
 
     // MODIFIES: this
