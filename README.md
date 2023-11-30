@@ -67,6 +67,22 @@ New attempt created! \
 Wed Nov 29 07:57:24 PST 2023 \
 Attempt Saved!
 
+## Phase 4 : Task 3
+In the hypothetical case of having more time to do this project, I would've designed
+a special class to handle the GUI components' look and styling. Attributes like colors,
+sizes, fonts, and other visual characteristics could be contained in this class.
+I could make all of the styling selections in one location.
+By doing this, it would be simpler to manage and alter the application's visual elements,
+without effecting the entire GUI class' functionality.\
+
+For simplicity, let's refer to this class as "GUIStyleManager". To obtain the necessary stylistic information, 
+each GUI class would just call methods or access properties from the GUIStyleManager, 
+rather than specifying its own colors and sizes. In design terms, by adhering to the 
+Single Responsibility Principle, this separation of concerns improves the general modularity of the program. 
+Although this refactoring adds a new class, it offers a better organized and adaptable framework for managing the GUI's 
+visual elements.
+
+
 ## Reference List
 - StackOverflow 
 - Oracle Help Center
