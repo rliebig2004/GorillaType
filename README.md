@@ -38,7 +38,7 @@ it might be even helpful for you too!
 - I want to be given the option to save my attempts to file or not when I finish a round.
 - I want to be given the option to load my attempts list from file when I start the application.
 
-## Instructions for Grader
+## Instructions
 - You can generate the first required action related to the user story "adding multiple Xs to a Y" by 
 **pressing the "Save" button after you finish a round, it will save that new entry to the scoreboard.**
 - You can generate the second required action related to the user story "adding multiple Xs to a Y" by 
@@ -47,7 +47,7 @@ it might be even helpful for you too!
 - You can save the state of my application by **pressing the "Save" button**
 - You can reload the state of my application by **pressing the "Load Progress" button**
 
-## Phase 4: Task 2
+## Logging Details (Example)
 Wed Nov 29 07:57:23 PST 2023 \
 New attempt created! \
 Wed Nov 29 07:57:24 PST 2023 \
@@ -67,7 +67,7 @@ New attempt created! \
 Wed Nov 29 07:57:24 PST 2023 \
 Attempt Saved!
 
-## Phase 4 : Task 3
+## Future Improvements
 In the hypothetical case of having more time to do this project, I would've designed
 a special class to handle the GUI components' look and styling. Attributes like colors,
 sizes, fonts, and other visual characteristics could be contained in this class.
